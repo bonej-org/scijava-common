@@ -546,6 +546,30 @@ public final class Types {
 	}
 
 	/**
+	 * Checks whether the given object can be cast to the specified type.
+	 *
+	 * @return true If the destination class is assignable from the source
+	 *         object's class, or if the source object is null and destination
+	 *         class is non-null.
+	 * @see #cast(Object, Class)
+	 */
+	public static boolean isInstance(final Object obj, final Class<?> dest) {
+		if (dest == null) return false;
+		return obj == null || dest.isInstance(obj);
+	}
+
+	/**
+	 * Casts the given object to the specified type, or null if the types are
+	 * incompatible.
+	 */
+	public static <T> T cast(final Object src, final Class<T> dest) {
+		if (!isInstance(src, dest)) return null;
+		@SuppressWarnings("unchecked")
+		final T result = (T) src;
+		return result;
+	}
+
+	/**
 	 * Creates a new {@link ParameterizedType} of the given class together with
 	 * the specified type arguments.
 	 *
